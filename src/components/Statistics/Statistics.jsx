@@ -1,47 +1,36 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { Notification } from 'components/Notification/Notification';
+import css from './Statistics.module.css';
 
-export default class Statistics extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-
-  Increment = e => {
-    console.log(e.currentTarget.id);
-    const id = e.currentTarget.id;
-    this.setState(prevstate => {
-      return {
-        [id]: prevstate[id] + 1,
-      };
-    });
-  };
-
-  render() {
-    return (
-      <>
-        <h1>Please leave feedback</h1>
-        <div>
-          <button id="good" type="button" onClick={this.Increment}>
-            Good
-          </button>
-          <button id="neutral" type="button" onClick={this.Increment}>
-            Neutral
-          </button>
-          <button id="bad" type="button" onClick={this.Increment}>
-            Bad
-          </button>
-        </div>
-        <h2>Statistics</h2>
+export const Statistics = ({
+  good,
+  neutral,
+  bad,
+  total,
+  positivePercentage,
+}) => {
+  const feedbacks = total();
+  return (
+    <>
+      {feedbacks > 0 ? (
         <ul>
-          <li> Good:{this.state.good}</li>
-          <li>Neutral:{this.state.neutral}</li>
-          <li>Bad:{this.state.bad}</li>
+          <li>Good:{good}</li>
+          <li>Neutral:{neutral}</li>
+          <li>Bad:{bad}</li>
+          <li>Total:{total()}</li>
+          <li>Positive feedback: {positivePercentage()}%</li>
         </ul>
-      </>
-    );
-  }
-}
+      ) : (
+        <Notification />
+      )}
+    </>
+  );
+};
 
-// PropTypes
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.func.isRequired,
+  positivePercentage: PropTypes.func.isRequired,
+};
