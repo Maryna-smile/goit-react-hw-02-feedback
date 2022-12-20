@@ -13,12 +13,12 @@ export const Statistics = ({
   return (
     <>
       {feedbacks > 0 ? (
-        <ul>
-          <li>Good:{good}</li>
-          <li>Neutral:{neutral}</li>
-          <li>Bad:{bad}</li>
-          <li>Total:{total()}</li>
-          <li>Positive feedback: {positivePercentage()}%</li>
+        <ul className={css.ul}>
+          <li className={css.li}>Good:{good}</li>
+          <li className={css.li}>Neutral:{neutral}</li>
+          <li className={css.li}>Bad:{bad}</li>
+          <li className={css.li}>Total:{total()}</li>
+          <li className={css.li}>Positive feedback: {positivePercentage()}%</li>
         </ul>
       ) : (
         <Notification />
